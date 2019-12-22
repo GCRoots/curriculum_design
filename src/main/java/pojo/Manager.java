@@ -5,4 +5,7 @@ package pojo;
  * @data 19-12-20
  */
 public class Manager {
+
+    private String id;
+    
 }
