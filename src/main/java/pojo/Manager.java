@@ -7,5 +7,5 @@ package pojo;
 public class Manager {
 
     private String id;
-    
+
 }
