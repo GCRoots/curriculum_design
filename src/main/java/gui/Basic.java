@@ -1,6 +1,8 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author shipengfei
@@ -14,8 +16,7 @@ public class Basic {
     }
 
     public void Login() {
-        JFrame jFrame=new JFrame("BASIC");
-
+        JFrame jFrame=new JFrame("BASIC 测试文件");
         jFrame.setDefaultLookAndFeelDecorated(true);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.pack();
@@ -26,6 +27,11 @@ public class Basic {
         jFrame.add(jPanel);
 
         JButton jButton=new JButton("Login");
+        jButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
 
         jPanel.add(jButton);
