@@ -1,1 +1,1 @@
-#课程设计——酒店管理系列
+#课程设计——工资管理系统（salary_management_system）
