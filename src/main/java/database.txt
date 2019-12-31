@@ -1,0 +1,130 @@
+use salary_management_system
+
+-- 员工基本信息表
+create table employee_basic
+(
+  staff_id         char(7)  not null
+    constraint employee_basic_pk
+    primary key,
+  staff_name       char(5)  not null,
+  sex              char(2) default '男'
+    check ([sex] = '男' OR [sex] = '女'),
+  birthday         date     not null,
+  parti_time       date     not null,
+  dep_name         char(10) not null,
+  position         char(8)  not null,
+  title            char(8)  not null,
+  political_status char(5),
+  marital_status   char(4)
+    check ([marital_status] = '已婚' OR [marital_status] = '未婚')
+)
+
+exec sp_addextendedproperty 'MS_Description', '员工编号', 'SCHEMA', 'dbo', 'TABLE', 'employee_basic', 'COLUMN', 'staff_id'
+exec sp_addextendedproperty 'MS_Description', '姓名', 'SCHEMA', 'dbo', 'TABLE', 'employee_basic', 'COLUMN', 'staff_name'
+exec sp_addextendedproperty 'MS_Description', '参加工作时间
+', 'SCHEMA', 'dbo', 'TABLE', 'employee_basic', 'COLUMN', 'parti_time'
+exec sp_addextendedproperty 'MS_Description', '所属部门', 'SCHEMA', 'dbo', 'TABLE', 'employee_basic', 'COLUMN', 'department'
+exec sp_addextendedproperty 'MS_Description', '职务', 'SCHEMA', 'dbo', 'TABLE', 'employee_basic', 'COLUMN', 'position'
+exec sp_addextendedproperty 'MS_Description', '职称', 'SCHEMA', 'dbo', 'TABLE', 'employee_basic', 'COLUMN', 'title'
+exec sp_addextendedproperty 'MS_Description', '政治面貌', 'SCHEMA', 'dbo', 'TABLE', 'employee_basic', 'COLUMN', 'political_status'
+exec sp_addextendedproperty 'MS_Description', '婚姻情况', 'SCHEMA', 'dbo', 'TABLE', 'employee_basic', 'COLUMN', 'marital_status'
+
+-- 创建规则
+create rule political
+  as
+  @value='群众' or @value='团员' or @value='党员'
+-- 绑定规则到指定列
+exec sp_bindrule political,'employee_basic.[political_status]'
+-- 查看规则
+exec sp_helptext political
+
+-- 应发工资表
+create table employee_salary_add(
+  staff_id char(7) NOT NULL ,
+  month int not null check (month>=1 and month<=12),
+
+  basic_wage money not null check (basic_wage>=0),
+  post_salary money not null check (post_salary>=0),
+  housing_subsidy money not null check (housing_subsidy>=0),
+  allowance money not null check (allowance>=0),
+  salary_add as basic_wage+post_salary+housing_subsidy+allowance,
+
+  primary key (staff_id,month),
+  foreign key (staff_id) references employee_basic(staff_id)
+)
+
+exec sp_addextendedproperty 'MS_Description', '员工编号', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_add', 'COLUMN',
+                            'staff_id'
+exec sp_addextendedproperty 'MS_Description', '基本工资', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_add', 'COLUMN',
+                            'basic_wage'
+exec sp_addextendedproperty 'MS_Description', '岗位工资', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_add', 'COLUMN',
+                            'post_salary'
+exec sp_addextendedproperty 'MS_Description', '住房补贴', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_add', 'COLUMN',
+                            'housing_subsidy'
+exec sp_addextendedproperty 'MS_Description', '津贴', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_add', 'COLUMN',
+                            'allowance'
+exec sp_addextendedproperty 'MS_Description', '应发工资', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_add', 'COLUMN',
+                            'salary_add'
+
+-- 应扣工资表
+create table employee_salary_sub(
+  staff_id char(7) NOT NULL ,
+  month int not null check (month>=1 and month<=12),
+
+  union_dues money not null check (union_dues>=0),
+  water_elec_fee money not null check (water_elec_fee>=0),
+  housing_fund money not null check (housing_fund>=0),
+  pension money not null check (pension>=0),
+  salary_sub as union_dues+water_elec_fee+housing_fund+pension,
+
+  primary key (staff_id,month),
+  foreign key (staff_id) references employee_basic(staff_id)
+)
+
+exec sp_addextendedproperty 'MS_Description', '工会会费', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_sub', 'COLUMN',
+                            'union_dues'
+exec sp_addextendedproperty 'MS_Description', '水电费', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_sub', 'COLUMN',
+                            'water_elec_fee'
+exec sp_addextendedproperty 'MS_Description', '住房公积金', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_sub', 'COLUMN',
+                            'housing_fund'
+exec sp_addextendedproperty 'MS_Description', '养老保险', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_sub', 'COLUMN',
+                            'pension'
+exec sp_addextendedproperty 'MS_Description', '应扣工资', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary_sub', 'COLUMN',
+                            'salary_sub'
+
+-- 实际工资表
+create table employee_salary(
+  staff_id char(7) NOT NULL ,
+  month int not null check (month>=1 and month<=12),
+
+  reward_puni money not null ,
+  salary_add money not null check (salary_add>=0),
+  salary_sub money not null check (salary_sub>=0),
+  real_wages as salary_add-salary_sub+reward_puni,
+
+  primary key (staff_id,month),
+  foreign key (staff_id) references employee_basic(staff_id),
+)
+
+exec sp_addextendedproperty 'MS_Description', '奖惩', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary', 'COLUMN', 'reward_puni'
+exec sp_addextendedproperty 'MS_Description', '应发工资', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary', 'COLUMN',
+                            'salary_add'
+exec sp_addextendedproperty 'MS_Description', '应扣工资', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary', 'COLUMN',
+                            'salary_sub'
+exec sp_addextendedproperty 'MS_Description', '实际工资', 'SCHEMA', 'dbo', 'TABLE', 'employee_salary', 'COLUMN',
+                            'real_wages'
+
+-- 部门信息表
+create table department(
+  dep_id char(4) PRIMARY KEY NOT NULL ,
+  dep_name char(20) not null ,
+  header char(10) not null ,
+  number int not null
+)
+
+exec sp_addextendedproperty 'MS_Description', '部门编号', 'SCHEMA', 'dbo', 'TABLE', 'department', 'COLUMN', 'dep_id'
+exec sp_addextendedproperty 'MS_Description', '部门名字', 'SCHEMA', 'dbo', 'TABLE', 'department', 'COLUMN', 'dep_name'
+exec sp_addextendedproperty 'MS_Description', '部门负责人', 'SCHEMA', 'dbo', 'TABLE', 'department', 'COLUMN', 'header'
+exec sp_addextendedproperty 'MS_Description', '部门人数', 'SCHEMA', 'dbo', 'TABLE', 'department', 'COLUMN', 'number'
+
+
