@@ -49,7 +49,7 @@ public class Admin extends JFrame {
         panel.setLayout(null);
         panel.setBorder(BorderFactory.createLoweredBevelBorder());
 
-        panel.setBounds(170,10,280,200);
+        panel.setBounds(150,10,320,200);
 
 
 
@@ -80,7 +80,7 @@ public class Admin extends JFrame {
                 final JPanel panelSalary=new JPanel();
                 panelSalary.setLayout(null);
                 panelSalary.setBorder(BorderFactory.createLineBorder(Color.lightGray));
-                panelSalary.setBounds(10,50,260,140);
+                panelSalary.setBounds(10,50,300,140);
 
                 JButton jButton=new JButton("发放");
                 jButton.setBounds(160,100,60,30);
@@ -196,6 +196,15 @@ public class Admin extends JFrame {
                 JButton update=new JButton("更改");
                 update.setBounds(180,100,60,27);
 
+                String[] headers = { "姓名", "性别","入职时间", "部门","职位","政治面貌","婚姻情况" };
+                Object[][] cellData = {
+                        {"技术部", "way",10,10,10,10,10,10,10}
+                };
+                JTable jTable=new JTable(cellData,headers);
+
+                jTable.getTableHeader().setBounds(3,50,315,20);
+                jTable.setBounds(3,70,315,20);
+
 
                 panel.add(idLabel);
                 panel.add(jTextID);
@@ -204,6 +213,8 @@ public class Admin extends JFrame {
                 panel.add(upLabel);
                 panel.add(jTextUP);
                 panel.add(update);
+                panel.add(jTable.getTableHeader());
+                panel.add(jTable);
 
                 panel.revalidate();
 

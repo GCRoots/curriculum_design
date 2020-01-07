@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -98,10 +99,22 @@ public class User extends JFrame {
                 JButton jButton=new JButton("查询");
                 jButton.setBounds(180,10,60,27);
 
+                String[] headers = { "部门", "负责人", "人数" };
+                Object[][] cellData = {
+                        {"技术部", "way",10},{"人事部", "who",5}
+                };
+                JTable jTable=new JTable(cellData,headers);
+
+                jTable.getTableHeader().setBounds(3,60,273,20);
+                jTable.setBounds(3,80,273,116);
+
 
                 panel.add(idLabel);
                 panel.add(jTextID);
                 panel.add(jButton);
+                panel.add(jTable.getTableHeader());
+                panel.add(jTable);
+
 
                 panel.revalidate();
 
