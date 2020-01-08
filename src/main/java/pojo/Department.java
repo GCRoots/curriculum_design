@@ -5,25 +5,25 @@ package pojo;
  * @data 19-12-29
  */
 public class Department {
-    private String dep_id;
-    private String dep_name;
+    private String depId;
+    private String depName;
     private String header;
     private String number;
 
-    public String getDep_id() {
-        return dep_id;
+    public String getDepId() {
+        return depId;
     }
 
-    public void setDep_id(String dep_id) {
-        this.dep_id = dep_id;
+    public void setDepId(String depId) {
+        this.depId = depId;
     }
 
-    public String getDep_name() {
-        return dep_name;
+    public String getDepName() {
+        return depName;
     }
 
-    public void setDep_name(String dep_name) {
-        this.dep_name = dep_name;
+    public void setDepName(String depName) {
+        this.depName = depName;
     }
 
     public String getHeader() {
@@ -45,8 +45,8 @@ public class Department {
     @Override
     public String toString() {
         return "Department{" +
-                "dep_id='" + dep_id + '\'' +
-                ", dep_name='" + dep_name + '\'' +
+                "depId='" + depId + '\'' +
+                ", depName='" + depName + '\'' +
                 ", header='" + header + '\'' +
                 ", number='" + number + '\'' +
                 '}';

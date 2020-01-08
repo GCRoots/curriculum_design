@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- tapDame.mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="dao.EmployeeDao">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+
+
+    <resultMap  id="EmployeeDaoResult" type="pojo.Employee">
+        <id property="staffId" column="staff_id"/>
+        <result property="staffName" column="staff_name"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="partiTime" column="parti_time"/>
+        <result property="depName" column="dep_name"/>
+        <result property="position" column="position"/>
+        <result property="title" column="title"/>
+        <result property="politicalStatus" column="political_status"/>
+        <result property="maritalStatus" column="marital_status"/>
+
+
+    </resultMap>
+
+    <select id="findByStaffID" resultType="pojo.Employee">
+        select * from employee_basic where staff_id=#{staffId}
+    </select>
+
+    <select id="findByStaffName" resultType="pojo.Employee">
+        select * from employee_basic where staff_name=#{staffName}
+    </select>
+
+    <insert id="insertEmployeeBasic">
+        insert
+        into employee_basic (staff_id, staff_name,sex, birthday, parti_time, dep_name,position, title,political_status,marital_status)
+        value (#{staffId},#{staffName},#{sex},#{birthday},#{partiTime},#{depName},#{position},#{title},#{politicalStatus},#{maritalStatus})
+    </insert>
+
+    <update id="updateEmployeeBasic">
+        update employee_basic
+        set
+        staff_name=#{staffName},
+        sex=#{sex},
+        birthday=#{birthday},
+        parti_time=#{partiTime},
+        dep_name=#{depName},
+        position=#{position},
+        title=#{title},
+        political_status=#{politicalStatus},
+        marital_status=#{maritalStatus}
+        where staff_id=#{staffId}
+    </update>
+
+    <delete id="deleteEmployeeBasic">
+      delete from employee_basic where staff_id=#{staffId}
+    </delete>
+
+
+</mapper>

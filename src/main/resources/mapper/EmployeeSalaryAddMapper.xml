@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- tapDame.mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="dao.EmployeeSalaryAddDao">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+
+
+    <resultMap  id="EmployeeSalaryAddDaoResult" type="pojo.EmployeeSalaryAdd">
+        <id property="staffId" column="staff_id"/>
+        <id property="time" column="time"/>
+        <result property="basicWage" column="basic_wage"/>
+        <result property="postSalary" column="post_salary"/>
+        <result property="housingSubsidy" column="housing_subsidy"/>
+        <result property="allowance" column="allowance"/>
+        <result property="salaryAdd" column="salary_add"/>
+    </resultMap>
+
+    <select id="addFind" resultType="pojo.EmployeeSalaryAdd">
+        select * from employee_salary_add
+        where staff_id=#{staffId} and time=#{time}
+    </select>
+
+
+    <insert id="insertEmployeeSalaryAdd">
+        insert
+        into employee_salary_add (staff_id, "time", basic_wage, post_salary, housing_subsidy, allowance)
+        values (#{staffId},#{time},#{basicWage},#{postSalary},#{housingSubsidy},#{allowance})
+    </insert>
+
+    <update id="updateEmployeeSalaryAdd">
+        update employee_salary_add
+        set
+        basic_wage=#{basicWage},
+        post_salary=#{postSalary},
+        housing_subsidy=#{housingSubsidy},
+        allowance=#{allowance}
+        where staff_id=#{staffId} and time=#{time}
+    </update>
+
+    <delete id="deleteEmployeeSalaryAdd">
+      delete from employee_salary_add
+      where staff_id=#{staffId} and time=#{time}
+    </delete>
+
+
+</mapper>

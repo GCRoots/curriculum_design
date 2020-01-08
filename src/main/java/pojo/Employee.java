@@ -7,14 +7,14 @@ package pojo;
 public class Employee {
     private String birthday;
     private String sex;
-    private String staff_id;
-    private String staff_name;
-    private String dep_name;
-    private String parti_time;
+    private String staffId;
+    private String staffName;
+    private String depName;
+    private String partiTime;
     private String title;
     private String position;
-    private String political_status;
-    private String marital_status;
+    private String politicalStatus;
+    private String maritalStatus;
 
     public String getBirthday() {
         return birthday;
@@ -32,36 +32,36 @@ public class Employee {
         this.sex = sex;
     }
 
-    public String getStaff_id() {
-        return staff_id;
+    public String getStaffId() {
+        return staffId;
     }
 
-    public void setStaff_id(String staff_id) {
-        this.staff_id = staff_id;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
     }
 
-    public String getStaff_name() {
-        return staff_name;
+    public String getStaffName() {
+        return staffName;
     }
 
-    public void setStaff_name(String staff_name) {
-        this.staff_name = staff_name;
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 
-    public String getDep_name() {
-        return dep_name;
+    public String getDepName() {
+        return depName;
     }
 
-    public void setDep_name(String dep_name) {
-        this.dep_name = dep_name;
+    public void setDepName(String dep_name) {
+        this.depName = dep_name;
     }
 
-    public String getParti_time() {
-        return parti_time;
+    public String getPartiTime() {
+        return partiTime;
     }
 
-    public void setParti_time(String parti_time) {
-        this.parti_time = parti_time;
+    public void setPartiTime(String partiTime) {
+        this.partiTime = partiTime;
     }
 
     public String getTitle() {
@@ -80,20 +80,20 @@ public class Employee {
         this.position = position;
     }
 
-    public String getPolitical_status() {
-        return political_status;
+    public String getPoliticalStatus() {
+        return politicalStatus;
     }
 
-    public void setPolitical_status(String political_status) {
-        this.political_status = political_status;
+    public void setPoliticalStatus(String politicalStatus) {
+        this.politicalStatus = politicalStatus;
     }
 
-    public String getMarital_status() {
-        return marital_status;
+    public String getMaritalStatus() {
+        return maritalStatus;
     }
 
-    public void setMarital_status(String marital_status) {
-        this.marital_status = marital_status;
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
     }
 
     @Override
@@ -101,14 +101,14 @@ public class Employee {
         return "Employee{" +
                 "birthday='" + birthday + '\'' +
                 ", sex='" + sex + '\'' +
-                ", staff_id='" + staff_id + '\'' +
-                ", staff_name='" + staff_name + '\'' +
-                ", dep_name='" + dep_name + '\'' +
-                ", parti_time='" + parti_time + '\'' +
+                ", staffId='" + staffId + '\'' +
+                ", staffName='" + staffName + '\'' +
+                ", depName='" + depName + '\'' +
+                ", partiTime='" + partiTime + '\'' +
                 ", title='" + title + '\'' +
                 ", position='" + position + '\'' +
-                ", political_status='" + political_status + '\'' +
-                ", marital_status='" + marital_status + '\'' +
+                ", politicalStatus='" + politicalStatus + '\'' +
+                ", maritalStatus='" + maritalStatus + '\'' +
                 '}';
     }
 }

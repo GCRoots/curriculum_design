@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- tapDame.mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="dao.UsersDao">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+
+
+    <resultMap  id="UsersDaoResult" type="pojo.Users">
+        <id property="userid" column="user"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <select id="findUsers" resultType="pojo.Users">
+        select * from users
+        where userid=#{user}
+    </select>
+
+
+    <insert id="insertUsers">
+        insert
+        into users (userid, password)
+        values (#{user},#{password})
+    </insert>
+
+    <update id="updateUsers">
+        update users
+        set
+        password=#{password}
+        where userid=#{user}
+    </update>
+
+    <delete id="deleteUsers">
+      delete from users
+      where userid=#{user}
+    </delete>
+
+
+
+</mapper>

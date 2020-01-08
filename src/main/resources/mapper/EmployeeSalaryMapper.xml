@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- tapDame.mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="dao.EmployeeSalaryDao">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+
+
+    <resultMap  id="EmployeeSalaryDaoResult" type="pojo.EmployeeSalary">
+        <id property="staff_id" column="staff_id"/>
+        <result property="staff_name" column="staff_name"/>
+        <result property="reward_puni" column="reward_puni"/>
+        <result property="salary_add" column="salary_add"/>
+        <result property="salary_sub" column="salary_sub"/>
+        <result property="real_wages" column="real_wages"/>
+    </resultMap>
+
+    <select id="salaryFind" resultType="pojo.EmployeeSalary">
+        select * from employee_salary
+        where staff_id=#{staffId} and time=#{time}
+    </select>
+
+    <delete id="deleteEmployeeSalary">
+      delete from employee_salary
+      where staff_id=#{staffId} and time=#{time}
+    </delete>
+
+
+
+</mapper>

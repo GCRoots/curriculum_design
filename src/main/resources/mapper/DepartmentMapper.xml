@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- tapDame.mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="dao.DepartmentDao">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+
+
+    <resultMap  id="DepartmentDaoResult" type="pojo.Department">
+        <id property="depId" column="dep_id"/>
+        <result property="depName" column="dep_name"/>
+        <result property="header" column="header"/>
+        <result property="number" column="number"/>
+
+    </resultMap>
+
+
+    <select id="findByDepID" resultType="pojo.Department">
+        select * from department where dep_id=#{depId}
+    </select>
+
+    <select id="findByDepName" resultType="pojo.Department">
+        select * from department where dep_name=#{depName}
+    </select>
+
+    <insert id="insertDepartment">
+        insert
+        into department (dep_id, dep_name, header)
+        values (#{depId},#{depName},#{header})
+    </insert>
+
+    <update id="updateDepartment">
+        update department set header=#{header}
+        where dep_id=#{depId}
+    </update>
+
+    <delete id="deleteDepartment">
+      delete from department where dep_id=#{depId}
+    </delete>
+
+</mapper>

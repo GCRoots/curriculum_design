@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- tapDame.mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="dao.EmployeeSalarySubDao">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+
+
+    <resultMap  id="EmployeeSalarySubDaoResult" type="pojo.EmployeeSalarySub">
+        <id property="staff_id" column="staff_id"/>
+        <result property="staff_name" column="staff_name"/>
+        <result property="union_dues" column="union_dues"/>
+        <result property="water_elec_fee" column="water_elec_fee"/>
+        <result property="housing_fund" column="housing_fund"/>
+        <result property="pension" column="pension"/>
+        <result property="salary_sub" column="salary_sub"/>
+    </resultMap>
+
+    <select id="subFind" resultType="pojo.EmployeeSalarySub">
+        select * from employee_salary_sub
+        where staff_id=#{staffId} and time=#{time}
+    </select>
+
+
+    <insert id="insertEmployeeSalarySub">
+        insert
+        into employee_salary_sub (staff_id, "time", union_dues, water_elec_fee, housing_fund, pension)
+        values (#{staffId},#{time},#{unionDues},#{waterElecFee},#{housingFund},#{pension})
+    </insert>
+
+    <update id="updateEmployeeSalarySub">
+        update employee_salary_sub
+        set
+        union_dues=#{unionDues},
+        water_elec_fee=#{waterElecFee},
+        housing_fund=#{housingFund},
+        pension=#{pension}
+        where staff_id=#{staffId} and time=#{time}
+    </update>
+
+    <delete id="deleteEmployeeSalarySub">
+      delete from employee_salary_sub
+      where staff_id=#{staffId} and time=#{time}
+    </delete>
+
+
+
+</mapper>

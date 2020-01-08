@@ -1,5 +1,12 @@
 package gui;
 
+import dao.AdminDao;
+import dao.UsersDao;
+import dao.imp.AdminDaoImp;
+import dao.imp.UsersDaoImp;
+import pojo.Admins;
+import pojo.Users;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -83,31 +90,70 @@ public class Basic extends JFrame{
         //登录
         jb1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (JB1.isSelected()){
-                    String userID=jTextName.getText();
-                    String password= String.valueOf(jTextPass.getPassword());
 
-                    if (false){
-                        new Admin().admin();
-                        dispose();
-                    }else {
-                        JOptionPane.showMessageDialog(
-                                Basic.this,
-                                "用户名或密码不正确！！",
-                                "登录失败",
-                                JOptionPane.WARNING_MESSAGE
-                        );
+                String userID=jTextName.getText();
+                String password= String.valueOf(jTextPass.getPassword());
+
+                if (!(userID.equals("")||password.equals(""))){
+
+                    if (JB1.isSelected()) {  //管理员
+
+                        AdminDao adminDao = new AdminDaoImp();
+                        String pass = adminDao.findAdmin(userID).getPassword();
+
+                        if (pass.equals(password)) {
+                            JOptionPane.showMessageDialog(
+                                    Basic.this,
+                                    "管理员身份登录成功！",
+                                    "登录",
+                                    JOptionPane.PLAIN_MESSAGE
+                            );
+
+                            new Admin().admin();
+                            dispose();
+
+                        } else {
+                            JOptionPane.showMessageDialog(
+                                    Basic.this,
+                                    "用户名或密码不正确！！",
+                                    "登录失败",
+                                    JOptionPane.WARNING_MESSAGE
+                            );
+                        }
+                    } else {  //用户
+                        UsersDao usersDao = new UsersDaoImp();
+                        String pass = usersDao.findUsers(userID).getPassword();
+
+                        if (pass.equals(password)) {
+                            JOptionPane.showMessageDialog(
+                                    Basic.this,
+                                    "用户身份登录成功！",
+                                    "登录",
+                                    JOptionPane.PLAIN_MESSAGE
+                            );
+
+                            new User().user();
+                            dispose();
+
+                        } else {
+                            JOptionPane.showMessageDialog(
+                                    Basic.this,
+                                    "用户名或密码不正确！！",
+                                    "登录失败",
+                                    JOptionPane.WARNING_MESSAGE
+                            );
+                        }
                     }
-
-
-
-
                 }else {
 
-
-                    new User().user();
-                    dispose();
+                    JOptionPane.showMessageDialog(
+                            Basic.this,
+                            "用户名或密码不能为空！！",
+                            "登录失败",
+                            JOptionPane.WARNING_MESSAGE
+                    );
                 }
+
 
 
 
@@ -117,8 +163,38 @@ public class Basic extends JFrame{
         //注册
         jb2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String userID=jTextName.getText();
+                String password= String.valueOf(jTextPass.getPassword());
 
-                dispose();
+                if (JB1.isSelected()){ //管理员
+                    Admins admins=new Admins();
+                    admins.setUser(userID);
+                    admins.setPassword(password);
+
+                    AdminDao adminDao=new AdminDaoImp();
+                    adminDao.insertAdmin(admins);
+
+                    JOptionPane.showMessageDialog(
+                            Basic.this,
+                            "管理员身份注册成功！",
+                            "注册",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+                }else {                //用户
+                    Users users=new Users();
+                    users.setUser(userID);
+                    users.setPassword(password);
+
+                    UsersDao usersDao=new UsersDaoImp();
+                    usersDao.insertUsers(users);
+
+                    JOptionPane.showMessageDialog(
+                            Basic.this,
+                            "用户身份注册成功！",
+                            "注册",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+                }
             }
         });
 
