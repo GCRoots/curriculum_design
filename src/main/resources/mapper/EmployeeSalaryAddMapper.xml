@@ -43,7 +43,7 @@
 
     <delete id="deleteEmployeeSalaryAdd">
       delete from employee_salary_add
-      where staff_id=#{staffId} and time=#{time}
+      where time like '%' and staff_id=#{staffId}
     </delete>
 
 

@@ -10,12 +10,12 @@
 
 
     <resultMap  id="EmployeeSalaryDaoResult" type="pojo.EmployeeSalary">
-        <id property="staff_id" column="staff_id"/>
-        <result property="staff_name" column="staff_name"/>
-        <result property="reward_puni" column="reward_puni"/>
-        <result property="salary_add" column="salary_add"/>
-        <result property="salary_sub" column="salary_sub"/>
-        <result property="real_wages" column="real_wages"/>
+        <id property="staffId" column="staff_id"/>
+        <result property="staffName" column="staff_name"/>
+        <result property="rewardPuni" column="reward_puni"/>
+        <result property="salaryAdd" column="salary_add"/>
+        <result property="salarySub" column="salary_sub"/>
+        <result property="realWages" column="real_wages"/>
     </resultMap>
 
     <select id="salaryFind" resultType="pojo.EmployeeSalary">
@@ -25,8 +25,14 @@
 
     <delete id="deleteEmployeeSalary">
       delete from employee_salary
-      where staff_id=#{staffId} and time=#{time}
+      where staff_id=#{staffId} and time like '%'
     </delete>
+
+    <update id="upadtaEmployeeSalary" parameterType="pojo.EmployeeSalary">
+        update employee_salary set
+        reward_puni=#{rewardPuni}
+        where staff_id=#{staffId} and time=#{time}
+    </update>
 
 
 

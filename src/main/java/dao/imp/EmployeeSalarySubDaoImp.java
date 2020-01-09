@@ -76,7 +76,7 @@ public class EmployeeSalarySubDaoImp implements EmployeeSalarySubDao {
     }
 
     @Override
-    public void deleteEmployeeSalarySub(String staffID, String time) {
+    public void deleteEmployeeSalarySub(String staffID) {
         try {
             InputStream inputStream= Resources.getResourceAsStream("mybatis/mybatis.xml");
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -84,7 +84,7 @@ public class EmployeeSalarySubDaoImp implements EmployeeSalarySubDao {
             session=sqlSessionFactory.openSession();
 
             EmployeeSalarySubDao employeeDao=session.getMapper(EmployeeSalarySubDao.class);
-            employeeDao.deleteEmployeeSalarySub(staffID,time);
+            employeeDao.deleteEmployeeSalarySub(staffID);
 
             session.commit();
         }catch (IOException e) {

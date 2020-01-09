@@ -35,7 +35,7 @@
     <insert id="insertEmployeeBasic">
         insert
         into employee_basic (staff_id, staff_name,sex, birthday, parti_time, dep_name,position, title,political_status,marital_status)
-        value (#{staffId},#{staffName},#{sex},#{birthday},#{partiTime},#{depName},#{position},#{title},#{politicalStatus},#{maritalStatus})
+        values (#{staffId},#{staffName},#{sex},#{birthday},#{partiTime},#{depName},#{position},#{title},#{politicalStatus},#{maritalStatus})
     </insert>
 
     <update id="updateEmployeeBasic">

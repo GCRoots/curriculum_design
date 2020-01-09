@@ -42,7 +42,7 @@ public class EmployeeSalaryDaoImp implements EmployeeSalaryDao {
     }
 
     @Override
-    public void deleteEmployeeSalary(String staffID, String time) {
+    public void deleteEmployeeSalary(String staffID) {
         try {
             InputStream inputStream= Resources.getResourceAsStream("mybatis/mybatis.xml");
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -50,7 +50,7 @@ public class EmployeeSalaryDaoImp implements EmployeeSalaryDao {
             session=sqlSessionFactory.openSession();
 
             EmployeeSalaryDao employeeDao=session.getMapper(EmployeeSalaryDao.class);
-            employeeDao.deleteEmployeeSalary(staffID,time);
+            employeeDao.deleteEmployeeSalary(staffID);
 
             session.commit();
         }catch (IOException e) {
@@ -59,5 +59,22 @@ public class EmployeeSalaryDaoImp implements EmployeeSalaryDao {
             session.close();
         }
 
+    }
+
+    @Override
+    public void upadtaEmployeeSalary(EmployeeSalary employeeSalary) {
+        try {
+            InputStream inputStream= Resources.getResourceAsStream("mybatis/mybatis.xml");
+            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            session=sqlSessionFactory.openSession();
+            session.update("upadtaEmployeeSalary",employeeSalary);
+
+            session.commit();
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 }
